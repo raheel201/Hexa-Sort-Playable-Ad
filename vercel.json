@@ -1,0 +1,13 @@
+{
+  "headers": [
+    {
+      "source": "/assets/(.*).fbx",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/octet-stream"
+        }
+      ]
+    }
+  ]
+}

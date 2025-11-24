@@ -64,8 +64,10 @@ export class ThreeEngine {
         fbxLoader.load(ASSETS.hexa, (fbx) => {
             fbx.scale.setScalar(0.003);
             this.models['hexa'] = fbx;
-        }, undefined, () => {
-            // FBX failed to load, basic models already created
+            console.log('FBX hexa model loaded successfully');
+        }, undefined, (error) => {
+            console.warn('FBX hexa model failed to load:', error);
+            console.log('Using fallback basic hexa model');
         });
     }
 
