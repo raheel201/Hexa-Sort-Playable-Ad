@@ -1,0 +1,20 @@
+{
+  "name": "hexa-sort-ad",
+  "version": "1.0.0",
+  "description": "3D playable advertisement for Hexa Sort mobile game",
+  "main": "js/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.158.0",
+    "phaser": "^3.70.0",
+    "@tweenjs/tween.js": "^21.0.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
