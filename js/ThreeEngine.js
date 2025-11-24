@@ -49,12 +49,8 @@ export class ThreeEngine {
 
         const texLoader = new THREE.TextureLoader(manager);
 
-        // Load shadow texture
-        texLoader.load(ASSETS.shadow1, (tex) => {
-            this.shadowTexture = tex;
-        }, undefined, () => {
-            this.shadowTexture = null;
-        });
+        // Skip shadow texture loading - use fallback only
+        this.shadowTexture = null;
 
         // Create basic models first
         this.createBasicModels();
@@ -113,19 +109,29 @@ export class ThreeEngine {
             this.createRowColumns(row);
         }
         
-        // Add shadow
+        // Add shadow (with fallback)
+        const shadowGeo = new THREE.PlaneGeometry(8, 8);
+        let shadowMat;
+        
         if (this.shadowTexture) {
-            const shadowGeo = new THREE.PlaneGeometry(8, 8);
-            const shadowMat = new THREE.MeshBasicMaterial({ 
+            shadowMat = new THREE.MeshBasicMaterial({ 
                 map: this.shadowTexture, 
                 transparent: true, 
                 opacity: 0.4 
             });
-            const shadow = new THREE.Mesh(shadowGeo, shadowMat);
-            shadow.rotation.x = -Math.PI / 2;
-            shadow.position.y = -0.5;
-            this.scene.add(shadow);
+        } else {
+            // Fallback: simple dark circle shadow
+            shadowMat = new THREE.MeshBasicMaterial({ 
+                color: 0x000000, 
+                transparent: true, 
+                opacity: 0.2 
+            });
         }
+        
+        const shadow = new THREE.Mesh(shadowGeo, shadowMat);
+        shadow.rotation.x = -Math.PI / 2;
+        shadow.position.y = -0.5;
+        this.scene.add(shadow);
     }
 
     createFixedDropColumn() {

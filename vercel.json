@@ -8,6 +8,15 @@
           "value": "application/octet-stream"
         }
       ]
+    },
+    {
+      "source": "/assets/(.*).png",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/png"
+        }
+      ]
     }
   ]
 }
