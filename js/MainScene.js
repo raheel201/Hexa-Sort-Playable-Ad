@@ -46,21 +46,14 @@ export class MainScene extends Phaser.Scene {
             }
         });
 
-        // UI
-        this.scoreText = this.add.text(20, 20, 'Moves: 0', {
-            fontSize: '28px',
-            fontFamily: 'Arial',
-            color: '#ffffff',
+        // UI - Score only (removed moves count)
+        this.scoreDisplay = this.add.text(20, 20, 'Score: 0', {
+            fontSize: '32px',
+            fontFamily: 'Arial, sans-serif',
+            color: '#FFD700',
             stroke: '#000000',
-            strokeThickness: 4
-        });
-
-        this.scoreDisplay = this.add.text(20, 60, 'Score: 0', {
-            fontSize: '24px',
-            fontFamily: 'Arial',
-            color: '#ffffff',
-            stroke: '#000000',
-            strokeThickness: 3
+            strokeThickness: 4,
+            fontStyle: 'bold'
         });
         
         this.score = 0;
@@ -97,27 +90,35 @@ export class MainScene extends Phaser.Scene {
         }
     }
 
-    showFeedback(text, color = '#ffffff') {
+    showFeedback(text, color = '#FFD700') {
         const feedback = this.add.text(this.scale.width/2, this.scale.height/2, text, {
-            fontSize: '48px',
-            fontFamily: 'Arial',
+            fontSize: '56px',
+            fontFamily: 'Arial, sans-serif',
             color: color,
             stroke: '#000000',
-            strokeThickness: 6
+            strokeThickness: 8,
+            fontStyle: 'bold',
+            shadow: {
+                offsetX: 3,
+                offsetY: 3,
+                color: '#000000',
+                blur: 6,
+                fill: true
+            }
         }).setOrigin(0.5);
         
         this.tweens.add({
             targets: feedback,
-            y: feedback.y - 100,
+            y: feedback.y - 150,
             alpha: 0,
-            scale: 1.2,
-            duration: 800,
+            scale: 1.3,
+            duration: 1200,
+            ease: 'Power2.easeOut',
             onComplete: () => feedback.destroy()
         });
     }
 
     updateScore() {
-        this.scoreText.setText('Moves: ' + this.moves);
         this.scoreDisplay.setText('Score: ' + this.score);
     }
 
